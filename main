@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #content{
+            overflow: hidden;
+            width: 1110px;
+            margin: 0 auto;
+        }
+        #content .section{
+            width: 200px;
+            height: 360px;
+            border: 1px solid gray;
+            float: left;
+        }
+        #content .section img{
+            width: 200px;
+            height: 300px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+            var oContent=document.getElementById('content')
+
+            var request=new XMLHttpRequest()
+
+            request.open('get',"https://api.unsplash.com/photos/?client_id=wm29dB93DCc0bFGI5jeALH2BhnmiANmw0a00I2UXm6c",true)
+
+            request.send()
+
+            request.onreadystatechange=function(){
+                if(request.readyState==4){
+                    if(request.status==200){
+                        //JSON解析數據
+                        var dataSource=JSON.parse(request.response)
+                        //console.log(dataSource)
+                        //獲取商品數據
+                        var shops=dataSource.dataSource
+                        //遍歷操作
+                        for(var i=0;i<shops.length ;i++){
+                            //console.log(shops[i].alt_description)
+                            var oSection=document.createElement('div')
+                            oSection.className='section'
+                            oContent.appendChild(oSection)
+                            //photo??!!
+                            //
+                            var oDesc = document.createElement('p')
+                            oDesc.innerHTML= shops[i].alt_description
+                            oSection.appendChild(oDesc)
+                        }
+                        
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="content">
+        <!-- <div class="section">
+            <img src="#" alt="">
+            <p>到時要帶入文字敘述 ~ ~ ~ </p>
+        </div>
+
+        <div class="section">
+            <img src="#" alt="">
+            <p>到時要帶入文字敘述 ~ ~ ~ </p>
+        </div>        
+        
+        <div class="section">
+            <img src="#" alt="">
+            <p>到時要帶入文字敘述 ~ ~ ~ </p>
+        </div>        
+        
+        <div class="section">
+            <img src="#" alt="">
+            <p>到時要帶入文字敘述 ~ ~ ~ </p>
+        </div>
+
+        <div class="section">
+            <img src="#" alt="">
+            <p>到時要帶入文字敘述 ~ ~ ~ </p>
+        </div>
+
+        <div class="section">
+            <img src="#" alt="">
+            <p>到時要帶入文字敘述 ~ ~ ~ </p>
+        </div> -->
+
+
+
+    </div>
+</body>
+</html>

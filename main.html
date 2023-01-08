@@ -27,43 +27,45 @@
         }
     </style>
     <script type="text/javascript">
-        window.onload = function(){
-            var oContent=document.getElementById('content')
-
+        window.onload=function(){
+            var oContent=document.getElementById("content")
             var request=new XMLHttpRequest()
-
-            request.open('get',"https://api.unsplash.com/photos/?client_id=wm29dB93DCc0bFGI5jeALH2BhnmiANmw0a00I2UXm6c",true)
-
+            var url="https://api.unsplash.com/photos/?client_id=wm29dB93DCc0bFGI5jeALH2BhnmiANmw0a00I2UXm6c"
+            request.open("get",url,true)
             request.send()
-
             request.onreadystatechange=function(){
                 if(request.readyState==4){
                     if(request.status==200){
-                        //JSON解析數據
                         var dataSource=JSON.parse(request.response)
-                        //console.log(dataSource)
-                        //獲取商品數據
-                        var shops=dataSource.dataSource
-                        //遍歷操作
-                        for(var i=0;i<shops.length ;i++){
-                            //console.log(shops[i].alt_description)
-                            var oSection=document.createElement('div')
-                            oSection.className='section'
-                            oContent.appendChild(oSection)
-                            //photo??!!
-                            //
-                            var oDesc = document.createElement('p')
-                            oDesc.innerHTML= shops[i].alt_description
-                            oSection.appendChild(oDesc)
-                        }
-                        
+                        // var shop=dataSource.data
+                        console.log(dataSource)
                     }
+                    for (let i = 0; i < dataSource.length; i++) {
+                        // let container = document.querySelector(".content");
+                        // let img = document.createElement("img");
+                        // img.setAttribute("src", dataSource[i].urls.small);
+                        // oContent.append(img);
+
+
+                        var oSection=document.createElement("div")
+                        oSection.className="section"
+                        oContent.appendChild(oSection)
+                        var oImg=document.createElement("img")
+                        oImg.src=dataSource[i].urls.small
+                        oSection.appendChild(oImg);
+
+                        var oDescription=document.createElement("p")
+                        oDescription.innerHTML=dataSource[i].alt_description
+                        oSection.appendChild(oDescription)
+                    }
+                    
                 }
             }
         }
     </script>
 </head>
 <body>
+    <div class="container"></div>
     <div id="content">
         <!-- <div class="section">
             <img src="#" alt="">
